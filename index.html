@@ -28,4 +28,213 @@
                 <a href="#" class="text-2xl font-extrabold tracking-tighter text-indigo-600">
                     GLOBALLY<span class="text-slate-800">TRENDS</span><span class="text-indigo-400 text-sm">.store</span>
                 </a>
-                <div class="hidden lg:
+                <div class="hidden lg:flex space-x-6 text-sm font-semibold text-slate-600">
+                    <a href="#trending" class="hover:text-indigo-600 transition">Tendances</a>
+                    <a href="#shop" class="hover:text-indigo-600 transition">Boutique</a>
+                    <a href="#" class="hover:text-indigo-600 transition">Collections</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-5">
+                <div class="relative cursor-pointer group" onclick="toggleCart()">
+                    <i class="fa-solid fa-bag-shopping text-2xl text-slate-700 group-hover:text-indigo-600 transition"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative h-[70vh] flex items-center overflow-hidden bg-slate-900">
+        <img src="https://images.unsplash.com/photo-1441986300917-6467492e0960?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Hero">
+        <div class="relative max-w-7xl mx-auto px-4 w-full">
+            <div class="max-w-2xl space-y-6">
+                <span class="text-indigo-400 font-bold tracking-widest uppercase text-sm">Saison 2024</span>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight">
+                    L'élégance <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">sans frontières.</span>
+                </h1>
+                <p class="text-slate-300 text-lg max-w-md">
+                    Accédez aux pièces les plus tendances du moment, sélectionnées avec soin.
+                </p>
+                <div class="flex gap-4 pt-4">
+                    <a href="#trending" class="bg-indigo-600 text-white px-8 py-4 rounded-full font-bold hover:bg-indigo-700 transition shadow-xl shadow-indigo-500/20">Découvrir le Top Trending</a>
+                    <a href="#shop" class="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition border border-white/30">Toute la boutique</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION TENDANCES -->
+    <section id="trending" class="max-w-7xl mx-auto px-4 py-20">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl font-extrabold text-slate-900">🔥 Tendances Actuelles</h2>
+                <p class="text-slate-500 mt-2">Les articles les plus recherchés cette semaine.</p>
+            </div>
+            <a href="#shop" class="text-indigo-600 font-semibold hover:underline">Tout voir →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="trending-grid"></div>
+    </section>
+
+    <!-- SECTION BOUTIQUE -->
+    <section id="shop" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Notre Catalogue</h2>
+                <div class="flex justify-center gap-4 flex-wrap" id="category-filters">
+                    <button onclick="filterProducts('all')" class="filter-btn active px-6 py-2 rounded-full bg-indigo-600 text-white text-sm font-bold transition">Tous</button>
+                    <button onclick="filterProducts('accessoires')" class="filter-btn px-6 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 text-sm font-bold transition">Accessoires</button>
+                    <button onclick="filterProducts('tech')" class="filter-btn px-6 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 text-sm font-bold transition">High-Tech</button>
+                    <button onclick="filterProducts('mode')" class="filter-btn px-6 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 text-sm font-bold transition">Mode</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" id="product-grid"></div>
+        </div>
+    </section>
+
+    <!-- SIDEBAR PANIER -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[100] p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-2xl font-bold text-slate-800">Mon Panier</h3>
+            <button onclick="toggleCart()" class="text-slate-400 hover:text-red-500 transition"><i class="fa-solid fa-xmark text-3xl"></i></button>
+        </div>
+        <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
+        <div class="border-t border-slate-100 pt-6 space-y-4">
+            <div class="flex justify-between text-slate-500 font-medium">
+                <span>Sous-total</span>
+                <span id="cart-subtotal">0.00 €</span>
+            </div>
+            <div class="flex justify-between text-xl font-bold text-slate-900">
+                <span>Total</span>
+                <span id="cart-total">0.00 €</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
+                Passer la commande
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="text-2xl font-extrabold text-white mb-4">GLOBALLY<span class="text-indigo-400">TRENDS</span></div>
+            <p class="text-sm leading-relaxed">&copy; 2024 Globallytrends.store | Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Montre Onyx Midnight", price: 199.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1523275335095-d4038a73f37c?w=400" },
+            { id: 2, name: "Casque NoiseCancel Pro", price: 299.00, category: "tech", trending: true, img: "https://images.unsplash.com/photo-1505740420928-3ef90c7a29a2?w=400" },
+            { id: 3, name: "Sac en Cuir Italien", price: 150.00, category: "mode", trending: false, img: "https://images.unsplash.com/photo-158491786544a-c95d8c73077a?w=400" },
+            { id: 4, name: "Lunettes Aviator Gold", price: 85.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1572635196237-14049f19902c?w=400" },
+            { id: 5, name: "Sneakers Urban Cloud", price: 120.00, category: "mode", trending: false, img: "https://images.unsplash.com/photo-1542291060-3aa6917d25bf?w=400" },
+            { id: 6, name: "Enceinte Sphere 360", price: 180.00, category: "tech", trending: false, img: "https://images.unsplash.com/photo-1608155609754-a9e97a8d47ad?w=400" },
+            { id: 7, name: "Portefeuille Slim Carbon", price: 45.00, category: "accessoires", trending: false, img: "https://images.unsplash.com/photo-1627120726874-b1671374f57c?w=400" },
+            { id: 8, name: "Lampe Design Minimal", price: 65.00, category: "tech", trending: false, img: "https://images.unsplash.com/photo-1534095609345-7d5173095774?w=400" },
+        ];
+
+        let cart = [];
+
+        function renderTrending() {
+            const trendingGrid = document.getElementById('trending-grid');
+            const trendingItems = products.filter(p => p.trending);
+            trendingGrid.innerHTML = trendingItems.map(p => `
+                <div class="group relative bg-white p-4 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all">
+                    <div class="relative overflow-hidden rounded-2xl mb-4">
+                        <span class="absolute top-3 left-3 z-10 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-full trending-badge uppercase">Top Trend</span>
+                        <img src="${p.img}" class="w-full h-72 object-cover group-hover:scale-105 transition duration-500">
+                        <button onclick="addToCart(${p.id})" class="absolute bottom-4 right-4 bg-white text-indigo-600 p-4 rounded-2xl shadow-lg hover:bg-indigo-600 hover:text-white transition-all">
+                            <i class="fa-solid fa-cart-plus text-xl"></i>
+                        </button>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg">${p.name}</h3>
+                    <p class="text-indigo-600 font-extrabold text-xl">${p.price.toFixed(2)} €</p>
+                </div>
+            `).join('');
+        }
+
+        function renderShop(category = 'all') {
+            const grid = document.getElementById('product-grid');
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+            grid.innerHTML = filtered.map(p => `
+                <div class="group bg-white p-3 rounded-2xl border border-slate-100 hover:border-indigo-200 transition-all">
+                    <div class="relative overflow-hidden rounded-xl mb-3">
+                        <img src="${p.img}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
+                        <button onclick="addToCart(${p.id})" class="absolute bottom-2 right-2 bg-indigo-600 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="px-2">
+                        <h3 class="text-sm font-bold text-slate-700 truncate">${p.name}</h3>
+                        <p class="text-indigo-600 font-bold">${p.price.toFixed(2)} €</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+            event.target.classList.add('bg-indigo-600', 'text-white');
+            renderShop(category);
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCart();
+            toggleCart(true);
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+            cartCount.innerText = cart.length;
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-cart-plus text-4xl mb-4"></i><p>Votre panier est vide</p></div>';
+                cartSubtotal.innerText = '0.00 €';
+                cartTotal.innerText = '0.00 €';
+                return;
+            }
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <img src="${item.img}" class="w-16 h-16 rounded-lg object-cover">
+                    <div class="flex-grow">
+                        <p class="text-sm font-bold text-slate-800">${item.name}</p>
+                        <p class="text-xs font-bold text-indigo-600">${item.price.toFixed(2)} €</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-slate-300 hover:text-red-500 transition"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartSubtotal.innerText = `${total.toFixed(2)} €`;
+            cartTotal.innerText = `${total.toFixed(2)} €`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCart(forceOpen = null) {
+            const sidebar = document.getElementById('cart-sidebar');
+            if (forceOpen === true) sidebar.classList.remove('translate-x-full');
+            else sidebar.classList.toggle('translate-x-full');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert("Votre panier est vide !");
+            alert("🚀 Redirection vers LemonSqueezy...\nNous préparons votre paiement sécurisé.");
+        }
+
+        window.onload = () => {
+            renderTrending();
+            renderShop();
+        };
+    </script>
+</body>
+</html>
