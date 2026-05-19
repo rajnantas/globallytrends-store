@@ -13,15 +13,14 @@
         .trending-badge { animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- TOP BAR -->
     <div class="bg-indigo-600 text-white text-center py-2 text-sm font-medium">
         ✨ Livraison offerte partout dans le monde dès 100€ d'achat !
     </div>
 
-    <!-- NAVIGATION -->
     <nav class="glass sticky top-0 z-50 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-8">
@@ -43,7 +42,6 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section class="relative h-[70vh] flex items-center overflow-hidden bg-slate-900">
         <img src="https://images.unsplash.com/photo-1441986300917-6467492e0960?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Hero">
         <div class="relative max-w-7xl mx-auto px-4 w-full">
@@ -63,7 +61,6 @@
         </div>
     </section>
 
-    <!-- SECTION TENDANCES -->
     <section id="trending" class="max-w-7xl mx-auto px-4 py-20">
         <div class="flex justify-between items-end mb-12">
             <div>
@@ -75,7 +72,6 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="trending-grid"></div>
     </section>
 
-    <!-- SECTION BOUTIQUE -->
     <section id="shop" class="bg-white py-20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
@@ -91,7 +87,6 @@
         </div>
     </section>
 
-    <!-- SIDEBAR PANIER -->
     <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[100] p-6 flex flex-col">
         <div class="flex justify-between items-center mb-8">
             <h3 class="text-2xl font-bold text-slate-800">Mon Panier</h3>
@@ -113,7 +108,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-16">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <div class="text-2xl font-extrabold text-white mb-4">GLOBALLY<span class="text-indigo-400">TRENDS</span></div>
@@ -122,18 +116,40 @@
     </footer>
 
     <script>
-        const products = [
+        // 🔑 CONFIGURATION SUPABASE RÉELLE
+        const SUPABASE_URL = 'https://nnxgvyuofdextntgpmfu.supabase.co'; 
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6S laS laC lS lS lS...'; // METTEZ VOTRE CLÉ COMPLÈTE ICI
+        
+        // Note : Remplacez la chaîne ci-dessous par votre clé complète envoyée précédemment
+        const finalKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6S laS laC lS lS lS...'; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6S laS laC lS lS lS...'); 
+
+        // --- DONNÉES DE SECOURS ---
+        const fallbackProducts = [
             { id: 1, name: "Montre Onyx Midnight", price: 199.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1523275335095-d4038a73f37c?w=400" },
             { id: 2, name: "Casque NoiseCancel Pro", price: 299.00, category: "tech", trending: true, img: "https://images.unsplash.com/photo-1505740420928-3ef90c7a29a2?w=400" },
             { id: 3, name: "Sac en Cuir Italien", price: 150.00, category: "mode", trending: false, img: "https://images.unsplash.com/photo-158491786544a-c95d8c73077a?w=400" },
             { id: 4, name: "Lunettes Aviator Gold", price: 85.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1572635196237-14049f19902c?w=400" },
-            { id: 5, name: "Sneakers Urban Cloud", price: 120.00, category: "mode", trending: false, img: "https://images.unsplash.com/photo-1542291060-3aa6917d25bf?w=400" },
-            { id: 6, name: "Enceinte Sphere 360", price: 180.00, category: "tech", trending: false, img: "https://images.unsplash.com/photo-1608155609754-a9e97a8d47ad?w=400" },
-            { id: 7, name: "Portefeuille Slim Carbon", price: 45.00, category: "accessoires", trending: false, img: "https://images.unsplash.com/photo-1627120726874-b1671374f57c?w=400" },
-            { id: 8, name: "Lampe Design Minimal", price: 65.00, category: "tech", trending: false, img: "https://images.unsplash.com/photo-1534095609345-7d5173095774?w=400" },
         ];
 
+        let products = [];
         let cart = [];
+
+        async function fetchProducts() {
+            try {
+                const { data, error } = await supabaseClient.from('products').select('*');
+                if (error || !data || data.length === 0) {
+                    products = fallbackProducts;
+                } else {
+                    products = data;
+                }
+            } catch (e) {
+                products = fallbackProducts;
+            }
+            renderTrending();
+            renderShop();
+        }
 
         function renderTrending() {
             const trendingGrid = document.getElementById('trending-grid');
@@ -195,7 +211,7 @@
             const cartTotal = document.getElementById('cart-total');
             cartCount.innerText = cart.length;
             if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-cart-plus text-4xl mb-4"></i><p>Votre panier est vide</p></div>';
+                cartItems.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-cart-plus text-4xl mb-4"></i><p>Votre panier est vide</p>L</div>';
                 cartSubtotal.innerText = '0.00 €';
                 cartTotal.innerText = '0.00 €';
                 return;
@@ -231,10 +247,7 @@
             alert("🚀 Redirection vers LemonSqueezy...\nNous préparons votre paiement sécurisé.");
         }
 
-        window.onload = () => {
-            renderTrending();
-            renderShop();
-        };
+        window.onload = fetchProducts;
     </script>
 </body>
 </html>
