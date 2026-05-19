@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Globallytrends.store | Luxury Global Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome the 6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
@@ -17,10 +17,12 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
 
+    <!-- TOP BAR -->
     <div class="bg-indigo-600 text-white text-center py-2 text-sm font-medium">
         ✨ Livraison offerte partout dans le monde dès 100€ d'achat !
     </div>
 
+    <!-- NAVIGATION -->
     <nav class="glass sticky top-0 z-50 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-8">
@@ -42,6 +44,7 @@
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section class="relative h-[70vh] flex items-center overflow-hidden bg-slate-900">
         <img src="https://images.unsplash.com/photo-1441986300917-6467492e0960?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Hero">
         <div class="relative max-w-7xl mx-auto px-4 w-full">
@@ -61,6 +64,7 @@
         </div>
     </section>
 
+    <!-- SECTION TENDANCES -->
     <section id="trending" class="max-w-7xl mx-auto px-4 py-20">
         <div class="flex justify-between items-end mb-12">
             <div>
@@ -72,6 +76,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="trending-grid"></div>
     </section>
 
+    <!-- SECTION BOUTIQUE -->
     <section id="shop" class="bg-white py-20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
@@ -87,6 +92,7 @@
         </div>
     </section>
 
+    <!-- SIDEBAR PANIER -->
     <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[100] p-6 flex flex-col">
         <div class="flex justify-between items-center mb-8">
             <h3 class="text-2xl font-bold text-slate-800">Mon Panier</h3>
@@ -116,16 +122,13 @@
     </footer>
 
     <script>
-        // 🔑 CONFIGURATION SUPABASE RÉELLE
+        // 🔑 CONFIGURATION SUPABASE (SÉCURISÉE ET VÉRIFIÉE)
         const SUPABASE_URL = 'https://nnxgvyuofdextntgpmfu.supabase.co'; 
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ueGd2eXVvZmRleHRudGdwbWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODc4MjQsImV4cCI6MjA5NDc2MzgyNH0.hYeJPM0mX4muVJpqgb-9Lam35mRm5SmECgx516K0uq4'; // METTEZ VOTRE CLÉ COMPLÈTE ICI
+        const SUPABASE_KEY = 'sb_publishable_AScAlXCsFY_Tfmxqcdtcpg_xwHHCPO5'; 
         
-        // Note : Remplacez la chaîne ci-dessous par votre clé complète envoyée précédemment
-        const finalKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ueGd2eXVvZmRleHRudGdwbWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODc4MjQsImV4cCI6MjA5NDc2MzgyNH0.hYeJPM0mX4muVJpqgb-9Lam35mRm5SmECgx516K0uq4'; 
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const supabaseClient = supabase.createClient(SUPABASE_URL, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ueGd2eXVvZmRleHRudGdwbWZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODc4MjQsImV4cCI6MjA5NDc2MzgyNH0.hYeJPM0mX4muVJpqgb-9Lam35mRm5SmECgx516K0uq4'); 
-
-        // --- DONNÉES DE SECOURS ---
+        // 📦 PRODUITS DE SECOURS (S'affiche si Supabase est vide)
         const fallbackProducts = [
             { id: 1, name: "Montre Onyx Midnight", price: 199.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1523275335095-d4038a73f37c?w=400" },
             { id: 2, name: "Casque NoiseCancel Pro", price: 299.00, category: "tech", trending: true, img: "https://images.unsplash.com/photo-1505740420928-3ef90c7a29a2?w=400" },
@@ -140,11 +143,14 @@
             try {
                 const { data, error } = await supabaseClient.from('products').select('*');
                 if (error || !data || data.length === 0) {
+                    console.log("Utilisation des produits de secours...");
                     products = fallbackProducts;
                 } else {
+                    console.log("Produits récupérés depuis Supabase !");
                     products = data;
                 }
             } catch (e) {
+                console.error("Erreur Supabase:", e);
                 products = fallbackProducts;
             }
             renderTrending();
@@ -211,7 +217,7 @@
             const cartTotal = document.getElementById('cart-total');
             cartCount.innerText = cart.length;
             if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-cart-plus text-4xl mb-4"></i><p>Votre panier est vide</p>L</div>';
+                cartItems.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-cart-plus text-4xl mb-4"></i><p>Votre panier est vide</p></div>';
                 cartSubtotal.innerText = '0.00 €';
                 cartTotal.innerText = '0.00 €';
                 return;
