@@ -1,0 +1,1 @@
+# globallytrends-store
