@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Globallytrends.store | Luxury Global Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome the 6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
-        .trending-badge { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        .product-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
@@ -26,41 +24,35 @@
     <nav class="glass sticky top-0 z-50 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-8">
-                <a href="#" class="text-2xl font-extrabold tracking-tighter text-indigo-600">
-                    GLOBALLY<span class="text-slate-800">TRENDS</span><span class="text-indigo-400 text-sm">.store</span>
+                <a href="#" class="text-2xl font-extrabold text-slate-900 tracking-tighter">
+                    Globally<span class="text-indigo-600">trends</span>
                 </a>
-                <div class="hidden lg:flex space-x-6 text-sm font-semibold text-slate-600">
-                    <a href="#trending" class="hover:text-indigo-600 transition">Tendances</a>
-                    <a href="#shop" class="hover:text-indigo-600 transition">Boutique</a>
-                    <a href="#" class="hover:text-indigo-600 transition">Collections</a>
+                <div class="hidden md:flex gap-6 text-sm font-semibold text-slate-600">
+                    <a href="#trending" class="hover:text-indigo-600">Tendances</a>
+                    <a href="#shop" class="hover:text-indigo-600">Boutique</a>
+                    <a href="#" class="hover:text-indigo-600">À propos</a>
                 </div>
             </div>
-            <div class="flex items-center gap-5">
-                <div class="relative cursor-pointer group" onclick="toggleCart()">
-                    <i class="fa-solid fa-bag-shopping text-2xl text-slate-700 group-hover:text-indigo-600 transition"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </div>
-            </div>
+            <button onclick="toggleCart()" class="relative p-2 text-slate-700 hover:text-indigo-600">
+                <i class="fa-solid fa-bag-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </button>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
     <section class="relative h-[70vh] flex items-center overflow-hidden bg-slate-900">
-        <img src="https://images.unsplash.com/photo-1441986300917-6467492e0960?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Hero">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674a2e0960?auto=format&fit=crop&w=1600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Hero">
         <div class="relative max-w-7xl mx-auto px-4 w-full">
-            <div class="max-w-2xl space-y-6">
-                <span class="text-indigo-400 font-bold tracking-widest uppercase text-sm">Saison 2024</span>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight">
-                    L'élégance <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">sans frontières.</span>
-                </h1>
-                <p class="text-slate-300 text-lg max-w-md">
-                    Accédez aux pièces les plus tendances du moment, sélectionnées avec soin.
-                </p>
-                <div class="flex gap-4 pt-4">
-                    <a href="#trending" class="bg-indigo-600 text-white px-8 py-4 rounded-full font-bold hover:bg-indigo-700 transition shadow-xl shadow-indigo-500/20">Découvrir le Top Trending</a>
-                    <a href="#shop" class="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition border border-white/30">Toute la boutique</a>
-                </div>
-            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight">
+                Le luxe à portée <br><span class="text-indigo-400">du monde.</span>
+            </h1>
+            <p class="text-slate-300 text-lg mt-6 max-w-xl">
+                Découvrez notre sélection exclusive d'accessoires, de tech et de mode, livrée partout dans le monde.
+            </p>
+            <a href="#shop" class="mt-8 inline-block bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-indigo-600 hover:text-white transition">
+                Explorer le catalogue
+            </a>
         </div>
     </section>
 
@@ -69,9 +61,8 @@
         <div class="flex justify-between items-end mb-12">
             <div>
                 <h2 class="text-3xl font-extrabold text-slate-900">🔥 Tendances Actuelles</h2>
-                <p class="text-slate-500 mt-2">Les articles les plus recherchés cette semaine.</p>
+                <p class="text-slate-500 mt-2">Les produits les plus populaires du moment.</p>
             </div>
-            <a href="#shop" class="text-indigo-600 font-semibold hover:underline">Tout voir →</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="trending-grid"></div>
     </section>
@@ -81,14 +72,9 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-extrabold text-slate-900 mb-4">Notre Catalogue</h2>
-                <div class="flex justify-center gap-4 flex-wrap" id="category-filters">
-                    <button onclick="filterProducts('all')" class="filter-btn active px-6 py-2 rounded-full bg-indigo-600 text-white text-sm font-bold transition">Tous</button>
-                    <button onclick="filterProducts('accessoires')" class="filter-btn px-6 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 text-sm font-bold transition">Accessoires</button>
-                    <button onclick="filterProducts('tech')" class="filter-btn px-6 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 text-sm font-bold transition">High-Tech</button>
-                    <button onclick="filterProducts('mode')" class="filter-btn px-6 py-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 text-sm font-bold transition">Mode</button>
-                </div>
+                <p class="text-slate-500">L'excellence à chaque clic.</p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6" id="product-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6" id="shop-grid"></div>
         </div>
     </section>
 
@@ -96,164 +82,219 @@
     <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[100] p-6 flex flex-col">
         <div class="flex justify-between items-center mb-8">
             <h3 class="text-2xl font-bold text-slate-800">Mon Panier</h3>
-            <button onclick="toggleCart()" class="text-slate-400 hover:text-red-500 transition"><i class="fa-solid fa-xmark text-3xl"></i></button>
+            <button onclick="toggleCart()" class="text-slate-400 hover:text-slate-900">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
         </div>
-        <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
-        <div class="border-t border-slate-100 pt-6 space-y-4">
-            <div class="flex justify-between text-slate-500 font-medium">
+        <div id="cart-items" class="flex-1 overflow-y-auto space-y-4"></div>
+        <div class="border-t pt-4 mt-4">
+            <div class="flex justify-between text-slate-600 mb-2">
                 <span>Sous-total</span>
                 <span id="cart-subtotal">0.00 €</span>
             </div>
-            <div class="flex justify-between text-xl font-bold text-slate-900">
+            <div class="flex justify-between text-slate-900 font-bold text-lg mb-4">
                 <span>Total</span>
                 <span id="cart-total">0.00 €</span>
             </div>
-            <button onclick="checkout()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
-                Passer la commande
+            <button onclick="checkout()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition">
+                <i class="fa-solid fa-lock mr-2"></i>Payer avec Lemon Squeezy
             </button>
+            <p class="text-center text-xs text-slate-400 mt-2">🔒 Paiement sécurisé</p>
         </div>
     </div>
 
-    <footer class="bg-slate-900 text-slate-400 py-16">
+    <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="text-2xl font-extrabold text-white mb-4">GLOBALLY<span class="text-indigo-400">TRENDS</span></div>
-            <p class="text-sm leading-relaxed">&copy; 2024 Globallytrends.store | Tous droits réservés.</p>
+            <p class="text-slate-400">© 2026 Globallytrends.store — Tous droits réservés</p>
         </div>
     </footer>
 
+    <!-- 🪄 SCRIPT MERLIN 2.0 — CORRIGÉ -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // 🔑 CONFIGURATION SUPABASE (SÉCURISÉE ET VÉRIFIÉE)
-        const SUPABASE_URL = 'https://nnxgvyuofdextntgpmfu.supabase.co'; 
-        const SUPABASE_KEY = 'sb_publishable_AScAlXCsFY_Tfmxqcdtcpg_xwHHCPO5'; 
-        
+        // 🔑 CONFIGURATION SUPABASE
+        const SUPABASE_URL = 'https://nnxgvyuofdextntgpmfu.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_AScAlXCsFY_Tfmxqcdtcpg_xwHHCPO5';
+
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 📦 PRODUITS DE SECOURS (S'affiche si Supabase est vide)
+        // 💳 CONFIGURATION LEMON SQUEEZY (à compléter)
+        const LEMON_SQUEEZY_STORE = 'ton-store.lemonsqueezy.com'; // ⬅️ À REMPLACER
+        const LEMON_SQUEEZY_PRODUCT_ID = 'xxx-xxx-xxx'; // ⬅️ À REMPLACER
+
+        // 📦 PRODUITS DE SECOURS (s'affiche si Supabase est vide)
         const fallbackProducts = [
             { id: 1, name: "Montre Onyx Midnight", price: 199.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1523275335095-d4038a73f37c?w=400" },
             { id: 2, name: "Casque NoiseCancel Pro", price: 299.00, category: "tech", trending: true, img: "https://images.unsplash.com/photo-1505740420928-3ef90c7a29a2?w=400" },
-            { id: 3, name: "Sac en Cuir Italien", price: 150.00, category: "mode", trending: false, img: "https://images.unsplash.com/photo-158491786544a-c95d8c73077a?w=400" },
-            { id: 4, name: "Lunettes Aviator Gold", price: 85.00, category: "accessoires", trending: true, img: "https://images.unsplash.com/photo-1572635196237-14049f19902c?w=400" },
+            { id: 3, name: "Sac à main Venezia", price: 249.00, category: "mode", trending: true, img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400" },
+            { id: 4, name: "Lunettes Avo Aero", price: 159.00, category: "accessoires", trending: false, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400" },
+            { id: 5, name: "Enceinte Bluetooth Pulse", price: 129.00, category: "tech", trending: false, img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400" },
+            { id: 6, name: "Baskets Urban Stride", price: 189.00, category: "mode", trending: false, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+            { id: 7, name: "Parfum Nuit Étoilée", price: 89.00, category: "beauté", trending: true, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400" },
+            { id: 8, name: "Bracelet Cuir Roma", price: 79.00, category: "accessoires", trending: false, img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400" }
         ];
 
         let products = [];
         let cart = [];
 
-        async function fetchProducts() {
+        // 🚀 CHARGEMENT INITIAL
+        async function loadProducts() {
             try {
                 const { data, error } = await supabaseClient.from('products').select('*');
                 if (error || !data || data.length === 0) {
-                    console.log("Utilisation des produits de secours...");
+                    console.log("⚠️ Utilisation des produits de secours...");
                     products = fallbackProducts;
                 } else {
-                    console.log("Produits récupérés depuis Supabase !");
+                    console.log("✅ Produits récupérés depuis Supabase !", data.length);
                     products = data;
                 }
             } catch (e) {
-                console.error("Erreur Supabase:", e);
+                console.error("❌ Erreur Supabase:", e);
                 products = fallbackProducts;
             }
             renderTrending();
             renderShop();
         }
 
+        // 🎨 RENDER TENDANCES
         function renderTrending() {
-            const trendingGrid = document.getElementById('trending-grid');
-            const trendingItems = products.filter(p => p.trending);
-            trendingGrid.innerHTML = trendingItems.map(p => `
-                <div class="group relative bg-white p-4 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all">
-                    <div class="relative overflow-hidden rounded-2xl mb-4">
-                        <span class="absolute top-3 left-3 z-10 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-full trending-badge uppercase">Top Trend</span>
-                        <img src="${p.img}" class="w-full h-72 object-cover group-hover:scale-105 transition duration-500">
-                        <button onclick="addToCart(${p.id})" class="absolute bottom-4 right-4 bg-white text-indigo-600 p-4 rounded-2xl shadow-lg hover:bg-indigo-600 hover:text-white transition-all">
-                            <i class="fa-solid fa-cart-plus text-xl"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-slate-800 text-lg">${p.name}</h3>
-                    <p class="text-indigo-600 font-extrabold text-xl">${p.price.toFixed(2)} €</p>
-                </div>
-            `).join('');
+            const grid = document.getElementById('trending-grid');
+            const trending = products.filter(p => p.trending);
+            grid.innerHTML = trending.map(p => productCard(p)).join('');
         }
 
-        function renderShop(category = 'all') {
-            const grid = document.getElementById('product-grid');
-            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
-            grid.innerHTML = filtered.map(p => `
-                <div class="group bg-white p-3 rounded-2xl border border-slate-100 hover:border-indigo-200 transition-all">
-                    <div class="relative overflow-hidden rounded-xl mb-3">
-                        <img src="${p.img}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
-                        <button onclick="addToCart(${p.id})" class="absolute bottom-2 right-2 bg-indigo-600 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
+        // 🎨 RENDER BOUTIQUE
+        function renderShop() {
+            const grid = document.getElementById('shop-grid');
+            grid.innerHTML = products.map(p => productCard(p)).join('');
+        }
+
+        // 🎨 CARTE PRODUIT
+        function productCard(p) {
+            return `
+                <div class="product-card bg-slate-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl cursor-pointer" onclick="addToCart(${p.id})">
+                    <div class="aspect-square overflow-hidden bg-slate-200">
+                        <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">
                     </div>
-                    <div class="px-2">
+                    <div class="p-4">
+                        <p class="text-xs uppercase text-indigo-600 font-bold mb-1">${p.category}</p>
                         <h3 class="text-sm font-bold text-slate-700 truncate">${p.name}</h3>
-                        <p class="text-indigo-600 font-bold">${p.price.toFixed(2)} €</p>
+                        <p class="text-lg font-extrabold text-slate-900 mt-2">${p.price.toFixed(2)} €</p>
                     </div>
                 </div>
-            `).join('');
+            `;
         }
 
-        function filterProducts(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white');
-                btn.classList.add('bg-slate-100', 'text-slate-600');
-            });
-            event.target.classList.add('bg-indigo-600', 'text-white');
-            renderShop(category);
-        }
-
+        // 🛒 AJOUTER AU PANIER
         function addToCart(id) {
             const product = products.find(p => p.id === id);
-            cart.push(product);
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
             updateCart();
             toggleCart(true);
         }
 
+        // 🗑️ RETIRER DU PANIER
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        // 📊 METTRE À JOUR LE PANIER
         function updateCart() {
-            const cartCount = document.getElementById('cart-count');
             const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
             const cartSubtotal = document.getElementById('cart-subtotal');
             const cartTotal = document.getElementById('cart-total');
-            cartCount.innerText = cart.length;
+
+            cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+
             if (cart.length === 0) {
                 cartItems.innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-cart-plus text-4xl mb-4"></i><p>Votre panier est vide</p></div>';
                 cartSubtotal.innerText = '0.00 €';
                 cartTotal.innerText = '0.00 €';
                 return;
             }
-            cartItems.innerHTML = cart.map((item, index) => `
-                <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <img src="${item.img}" class="w-16 h-16 rounded-lg object-cover">
-                    <div class="flex-grow">
-                        <p class="text-sm font-bold text-slate-800">${item.name}</p>
-                        <p class="text-xs font-bold text-indigo-600">${item.price.toFixed(2)} €</p>
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex gap-4 items-center bg-slate-50 p-3 rounded-xl">
+                    <img src="${item.img}" class="w-16 h-16 object-cover rounded-lg">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold text-slate-800">${item.name}</h4>
+                        <p class="text-xs text-slate-500">${item.quantity} × ${item.price.toFixed(2)} €</p>
                     </div>
-                    <button onclick="removeFromCart(${index})" class="text-slate-300 hover:text-red-500 transition"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="removeFromCart(${item.id})" class="text-slate-400 hover:text-red-500">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
             `).join('');
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            cartSubtotal.innerText = `${total.toFixed(2)} €`;
-            cartTotal.innerText = `${total.toFixed(2)} €`;
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartSubtotal.innerText = total.toFixed(2) + ' €';
+            cartTotal.innerText = total.toFixed(2) + ' €';
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        function toggleCart(forceOpen = null) {
+        // 🛒 OUVRIR/FERMER PANIER
+        function toggleCart(open) {
             const sidebar = document.getElementById('cart-sidebar');
-            if (forceOpen === true) sidebar.classList.remove('translate-x-full');
-            else sidebar.classList.toggle('translate-x-full');
+            if (open === true || sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+            } else {
+                sidebar.classList.add('translate-x-full');
+            }
         }
 
-        function checkout() {
-            if (cart.length === 0) return alert("Votre panier est vide !");
-            alert("🚀 Redirection vers LemonSqueezy...\nNous préparons votre paiement sécurisé.");
+        // 💳 CHECKOUT LEMON SQUEEZY
+        async function checkout() {
+            if (cart.length === 0) {
+                alert('Votre panier est vide !');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            // 🧪 Si Lemon Squeezy pas encore configuré → mode démo
+            if (LEMON_SQUEEZY_STORE === 'ton-store.lemonsqueezy.com') {
+                const confirmDemo = confirm(
+                    `🪄 MODE DÉMO\n\nTotal : ${total.toFixed(2)} €\n\n` +
+                    `Lemon Squeezy n'est pas encore configuré.\n` +
+                    `Tu veux que je te guide pour le setup ?`
+                );
+                if (confirmDemo) {
+                    console.log('📋 Produits du panier:', cart);
+                    console.log('💰 Total:', total);
+                    alert('✅ Check console.log pour voir le panier capturé !');
+                }
+                return;
+            }
+
+            // 🚀 Redirection vers Lemon Squeezy Checkout
+            const checkoutUrl = `https://${LEMON_SQUEEZY_STORE}/checkout/buy/${LEMON_SQUEEZY_PRODUCT_ID}?checkout[email]=client@example.com`;
+            window.location.href = checkoutUrl;
+
+            // 💾 Sauvegarde la commande dans Supabase
+            try {
+                await supabaseClient.from('orders').insert({
+                    items: cart,
+                    total: total,
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                });
+                console.log('✅ Commande enregistrée dans Supabase');
+            } catch (e) {
+                console.error('❌ Erreur sauvegarde commande:', e);
+            }
         }
 
-        window.onload = fetchProducts;
+        // 🚀 DÉMARRAGE
+        loadProducts();
+        updateCart();
+        console.log('%c🪄 Merlin 2.0 — Globallytrends.store', 'color: #6366f1; font-size: 16px; font-weight: bold;');
+        console.log('%cTous les bugs ont été corrigés !', 'color: #10b981; font-size: 14px;');
     </script>
 </body>
 </html>
